@@ -10,20 +10,14 @@ namespace Proyecto.Models
     public class Contrato
     {
         [Key]
-        public int IdContrato { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public int? IdTipoContrato { get; set; }
+        public int? IdEmpleado { get; set; }
+        public DateTime? FechaInicio { get; set; }
+        public DateTime? FechaFin { get; set; }
 
-        public DateTime FechaInicio { get; set; }
-
-        public DateTime FechaFin { get; set; }
-
-        public int IdEmpleado { get; set; }
-
-        public int IdTipoContrato { get; set; }
-
-        [ForeignKey("IdEmpleado")]
-        public virtual Empleado Empleado { get; set; }
-
-        [ForeignKey("IdTipoContrato")]
         public virtual TipoContrato TipoContrato { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,11 +11,9 @@ namespace Proyecto.Models
     {
         [Key]
         public int IdDepartamento { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string NombreDepartamento { get; set; }
+        public string Nombre { get; set; }
 
         public virtual ICollection<Municipio> Municipios { get; set; }
     }
+
 }

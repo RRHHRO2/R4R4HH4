@@ -10,33 +10,39 @@ namespace Proyecto.Models
     public class Empleado
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdEmpleado { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Nombre { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Apellido { get; set; }
-
-        public DateTime FechaNacimiento { get; set; }
-
-        public int IdMunicipio { get; set; }
         public int IdTipoDocumento { get; set; }
+        public string NumeroDocumento { get; set; }
+        public DateTime FechaExpedicion { get; set; }
+        public int MunicipioExpedicion { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+        public int LugarNacimiento { get; set; }
+        public string Direccion { get; set; }
+        public string Barrio { get; set; }
+        public string Telefono { get; set; }
+        public string Celular { get; set; }
+        public string Correo { get; set; }
+        public int EPS { get; set; }
+        public int FondoPension { get; set; }
+        public int FondoCesantias { get; set; }
         public int IdAreaTrabajo { get; set; }
+        public int IdContrato { get; set; }
 
-        [ForeignKey("IdMunicipio")]
-        public virtual Municipio Municipio { get; set; }
-
-        [ForeignKey("IdTipoDocumento")]
+        // Propiedades de navegación
+        public virtual Municipio MunicipioNacimiento { get; set; }
+        public virtual Municipio MunicipioExpedicionDoc { get; set; }
+        public virtual SeguridadSocial EntidadEPS { get; set; }
+        public virtual SeguridadSocial EntidadFondoPension { get; set; }
+        public virtual SeguridadSocial EntidadFondoCesantias { get; set; }
         public virtual TipoDocumento TipoDocumento { get; set; }
-
-        [ForeignKey("IdAreaTrabajo")]
         public virtual AreaTrabajo AreaTrabajo { get; set; }
 
+        // Relaciones inversas
         public virtual ICollection<Contrato> Contratos { get; set; }
-        public virtual ICollection<Dependiente> Dependientes { get; set; }
         public virtual ICollection<Ausencia> Ausencias { get; set; }
+        public virtual ICollection<EmpleadoDependiente> Dependientes { get; set; }
     }
+
 }

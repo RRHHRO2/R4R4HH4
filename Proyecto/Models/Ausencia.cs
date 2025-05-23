@@ -10,19 +10,14 @@ namespace Proyecto.Models
     public class Ausencia
     {
         [Key]
-        public int IdAusencia { get; set; }
-
-        public DateTime FechaInicio { get; set; }
-
-        public DateTime FechaFin { get; set; }
-
-        [Required]
-        [StringLength(255)]
-        public string Motivo { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public int IdEmpleado { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public string TipoAusencia { get; set; }
+        public string Justificacion { get; set; }
 
-        [ForeignKey("IdEmpleado")]
         public virtual Empleado Empleado { get; set; }
     }
 }

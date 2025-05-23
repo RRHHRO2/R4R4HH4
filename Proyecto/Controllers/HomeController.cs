@@ -109,13 +109,17 @@ namespace Proyecto.Controllers
         private void CookieUpdate(Usuario usuario)
         {
             var ticket = new FormsAuthenticationTicket(2,
-                usuario.Correo,
-                DateTime.Now,
-                DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes),
-                false,
-                JsonConvert.SerializeObject(usuario)
+                    usuario.Correo,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes),
+                    false,
+                    JsonConvert.SerializeObject(usuario, new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    })
             );
             Session["Username"] = usuario.Correo;
+            Session["Rol"] = usuario.Rol.NombreRol;
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)) { };
             Response.AppendCookie(cookie);
         }

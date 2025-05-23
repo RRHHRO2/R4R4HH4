@@ -16,7 +16,7 @@ namespace Proyecto.Services
 
         public AuthResults Auth(string user, string password, out Usuario usuario)
         {
-            usuario = db.Usuarios.Where(x => x.Correo.Equals(user)).FirstOrDefault();
+            usuario = db.Usuarios.FirstOrDefault(x => x.Correo == user);
 
             if (usuario == null)
                 return AuthResults.NotExists;

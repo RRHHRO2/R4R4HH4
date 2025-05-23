@@ -7,22 +7,17 @@ using System.Web;
 
 namespace Proyecto.Models
 {
-    public class Dependiente
+    public class EmpleadoDependiente
     {
         [Key]
-        public int IdDependiente { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Nombre { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Parentesco { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public int IdEmpleado { get; set; }
+        public int IdTipoDocumento { get; set; }
+        public string Apellidos { get; set; }
+        public string Nombres { get; set; }
+        public string TipoDependiente { get; set; }
 
-        [ForeignKey("IdEmpleado")]
         public virtual Empleado Empleado { get; set; }
     }
 }

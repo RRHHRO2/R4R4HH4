@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Proyecto.Models.Usuario>
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+            <h3 class="mb-0">Lista de Usuarios</h3>
+            <a class="btn btn-light btn-sm" href="@Url.Action("Create")">
+                <i class="bi bi-plus-circle me-1"></i> Crear nuevo
+            </a>
+        </div>
+        <div class="card-body">
+            <br />
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Área de Trabajo</th>
+                        <th>Rol</th>
+                        <th>@Html.DisplayNameFor(model => model.Cedula)</th>
+                        <th>@Html.DisplayNameFor(model => model.NombreCompleto)</th>
+                        <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.AreaTrabajo.NombreArea</td>
+                            <td>@item.Rol.NombreRol</td>
+                            <td>@item.Cedula</td>
+                            <td>@item.NombreCompleto</td>
+                            <td>@item.Correo</td>
+                            <td>
+                                <a class="btn btn-sm btn-info text-white" href="@Url.Action("Edit", new { id = item.Id })">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a class="btn btn-sm btn-secondary" href="@Url.Action("Details", new { id = item.Id })">
+                                    <i class="bi bi-eye"></i> Detalles
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", new { id = item.Id })" onclick="return confirm('¿Está seguro que desea eliminar este usuario?');">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

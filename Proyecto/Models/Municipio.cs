@@ -11,16 +11,12 @@ namespace Proyecto.Models
     {
         [Key]
         public int IdMunicipio { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string NombreMunicipio { get; set; }
-
+        public string Nombre { get; set; }
+        public bool Estado { get; set; }
         public int IdDepartamento { get; set; }
 
-        [ForeignKey("IdDepartamento")]
         public virtual Departamento Departamento { get; set; }
-
-        public virtual ICollection<Empleado> Empleados { get; set; }
+        public virtual ICollection<Empleado> EmpleadosLugarNacimiento { get; set; }
+        public virtual ICollection<Empleado> EmpleadosMunicipioExpedicion { get; set; }
     }
 }
