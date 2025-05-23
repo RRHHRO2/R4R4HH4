@@ -29,10 +29,22 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Empleado")">Empleados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Contrato")">Contratos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "AreaTrabajo")">Áreas de Trabajo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Ausencias")">Ausencias</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Index", "Usuarios")">Usuarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Persona")">Personas</a>
+                            <a class="nav-link" href="@Url.Action("Index", "TipoDocumento")">Tipos de Documento</a>
                         </li>
                     }
                 </ul>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Proyecto.Models.Ausencia>
+
+@{
+    ViewBag.Title = "Listado de Ausencias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0"><i class="bi bi-calendar-x"></i> Ausencias</h2>
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nueva Ausencia
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empleado.NumeroDocumento)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaInicio)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaFin)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TipoAusencia)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Justificacion)</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Empleado.NumeroDocumento)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaInicio)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaFin)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TipoAusencia)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Justificacion)</td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-sm btn-warning me-1">
+                                <i class="bi bi-pencil-square"></i>Editar
+                            </a>
+                            <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-sm btn-info me-1 text-white">
+                                <i class="bi bi-info-circle"></i>Detalles
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

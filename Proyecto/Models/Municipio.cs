@@ -16,7 +16,5 @@ namespace Proyecto.Models
         public int IdDepartamento { get; set; }
 
         public virtual Departamento Departamento { get; set; }
-        public virtual ICollection<Empleado> EmpleadosLugarNacimiento { get; set; }
-        public virtual ICollection<Empleado> EmpleadosMunicipioExpedicion { get; set; }
     }
 }

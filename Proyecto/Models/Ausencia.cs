@@ -13,9 +13,21 @@ namespace Proyecto.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int IdEmpleado { get; set; }
+
+        [Display(Name = "Fecha de Inicio")]
+        [Required]
         public DateTime FechaInicio { get; set; }
+
+        [Display(Name = "Fecha de Finalización")]
+        [Required]
         public DateTime FechaFin { get; set; }
+
+        [Display(Name = "Tipo de Ausencia")]
+        [Required]
         public string TipoAusencia { get; set; }
+
+        [Display(Name = "Justificación")]
+        [Required]
         public string Justificacion { get; set; }
 
         public virtual Empleado Empleado { get; set; }

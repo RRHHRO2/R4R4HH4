@@ -1,0 +1,46 @@
+﻿@model Proyecto.Models.Contrato
+
+@{
+    ViewBag.Title = "Eliminar Contrato";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Eliminar Contrato</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="mb-3 text-danger">¿Está seguro que desea eliminar este contrato?</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.Empleado.NumeroDocumento):</strong>
+                    <p>@Html.DisplayFor(model => model.Empleado.NumeroDocumento)</p>
+                </div>
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.TipoContrato.NombreTipo):</strong>
+                    <p>@Html.DisplayFor(model => model.TipoContrato.NombreTipo)</p>
+                </div>
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.FechaInicio):</strong>
+                    <p>@Html.DisplayFor(model => model.FechaInicio)</p>
+                </div>
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.FechaFin):</strong>
+                    <p>@Html.DisplayFor(model => model.FechaFin)</p>
+                </div>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="mt-4">
+                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-secondary ms-2" })
+                </div>
+            }
+        </div>
+    </div>
+</div>

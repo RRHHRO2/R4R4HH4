@@ -1,0 +1,29 @@
+﻿@model Proyecto.Models.TipoDocumento
+
+@{
+    ViewBag.Title = "Eliminar Tipo de Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>@ViewBag.Title</h2>
+
+    <h4>¿Está seguro que desea eliminar este Tipo de Documento?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Abreviatura)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Abreviatura)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-secondary ms-2" })
+        </div>
+    }
+</div>

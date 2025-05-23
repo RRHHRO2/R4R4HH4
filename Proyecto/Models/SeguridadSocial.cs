@@ -14,9 +14,5 @@ namespace Proyecto.Models
         public int IdSeguridadSocial { get; set; }
         public string Nombre { get; set; }
         public string Tipo { get; set; }
-
-        public virtual ICollection<Empleado> EmpleadosEPS { get; set; }
-        public virtual ICollection<Empleado> EmpleadosFondoPension { get; set; }
-        public virtual ICollection<Empleado> EmpleadosFondoCesantias { get; set; }
     }
 }

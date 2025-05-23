@@ -13,8 +13,12 @@ namespace Proyecto.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdArea { get; set; }
 
+        [Display(Name = "Nombre Área")]
+        [Required]
         public string NombreArea { get; set; }
 
+        [Display(Name = "Descripción")]
+        [Required]
         public string Descripcion { get; set; }
 
         public virtual ICollection<Usuario> Usuarios { get; set; }

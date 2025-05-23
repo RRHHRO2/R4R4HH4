@@ -1,0 +1,30 @@
+﻿@model Proyecto.Models.TipoDocumento
+
+@{
+    ViewBag.Title = "Detalle del Tipo de Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>@ViewBag.Title</h2>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Tipo de Documento</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Abreviatura)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Abreviatura)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.IdTipoDocumento }, new { @class = "btn btn-warning me-2" })
+        @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿@model Proyecto.Models.Empleado
+
+@{
+    ViewBag.Title = "Eliminar Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">¿Estás seguro que deseas eliminar este empleado?</h2>
+
+    <div class="card shadow-sm border-danger mb-4">
+        <div class="card-header bg-danger text-white">
+            Información del Empleado
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Área de Trabajo</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.AreaTrabajo.NombreArea)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Municipio de Expedición</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.MunicipioExpedicionDoc.Nombre)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Municipio de Nacimiento</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.MunicipioNacimiento.Nombre)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Caja de Compensación</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.SSAFC.Nombre)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Fondo de Pensiones</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.SSAFP.Nombre)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">EPS</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.SSEPS.Nombre)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Tipo de Documento</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.TipoDocumento.Nombre)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Número de Documento</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.NumeroDocumento)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Fecha de Expedición</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.FechaExpedicion)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Nombres</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Nombres)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Apellidos</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Apellidos)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Dirección</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Direccion)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Barrio</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Barrio)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Teléfono</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Telefono)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Celular</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Celular)</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 fw-bold">Correo</div>
+                <div class="col-md-8">@Html.DisplayFor(model => model.Correo)</div>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="d-flex justify-content-between">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>

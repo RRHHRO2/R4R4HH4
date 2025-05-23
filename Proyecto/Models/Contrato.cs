@@ -12,10 +12,22 @@ namespace Proyecto.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int? IdTipoContrato { get; set; }
-        public int? IdEmpleado { get; set; }
-        public DateTime? FechaInicio { get; set; }
-        public DateTime? FechaFin { get; set; }
+
+        [Display(Name = "Tipo de Contrato")]
+        [Required]
+        public int IdTipoContrato { get; set; }
+
+        [Display(Name = "Empleado")]
+        [Required]
+        public int IdEmpleado { get; set; }
+
+        [Display(Name = "Fecha de Inicio")]
+        [Required]
+        public DateTime FechaInicio { get; set; }
+
+        [Display(Name = "Fecha de Terminación")]
+        [Required]
+        public DateTime FechaFin { get; set; }
 
         public virtual TipoContrato TipoContrato { get; set; }
         public virtual Empleado Empleado { get; set; }

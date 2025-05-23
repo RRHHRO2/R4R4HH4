@@ -14,8 +14,5 @@ namespace Proyecto.Models
         public int IdTipoDocumento { get; set; }
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
-
-        public virtual ICollection<Empleado> Empleados { get; set; }
-        public virtual ICollection<EmpleadoDependiente> EmpleadosDependientes { get; set; }
     }
 }

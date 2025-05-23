@@ -114,39 +114,29 @@ namespace Proyecto.Context
 
             modelBuilder.Entity<Contrato>()
                 .Property(c => c.IdTipoContrato)
-                .HasColumnName("IdTipoContrato");
+                .HasColumnName("IdTipoContrato")
+                .IsRequired();
 
             modelBuilder.Entity<Contrato>()
                 .Property(c => c.IdEmpleado)
-                .HasColumnName("IdEmpleado");
+                .HasColumnName("IdEmpleado")
+                .IsRequired();
 
             modelBuilder.Entity<Contrato>()
                 .Property(c => c.FechaInicio)
                 .HasColumnName("FechaInicio")
-                .HasColumnType("date");
+                .HasColumnType("date")
+                .IsRequired();
 
             modelBuilder.Entity<Contrato>()
                 .Property(c => c.FechaFin)
                 .HasColumnName("FechaFin")
-                .HasColumnType("date");
-
-            // Relaciones
-
-            modelBuilder.Entity<Contrato>()
-                .HasOptional(c => c.TipoContrato)
-                .WithMany(t => t.Contratos)
-                .HasForeignKey(c => c.IdTipoContrato)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Contrato>()
-                .HasOptional(c => c.Empleado)
-                .WithMany(e => e.Contratos)
-                .HasForeignKey(c => c.IdEmpleado)
-                .WillCascadeOnDelete(false);
+                .HasColumnType("date")
+                .IsRequired();
 
             modelBuilder.Entity<Empleado>()
-    .ToTable("Empleados")
-    .HasKey(e => e.IdEmpleado);
+                .ToTable("Empleados")
+                .HasKey(e => e.IdEmpleado);
 
             modelBuilder.Entity<Empleado>()
                 .Property(e => e.IdEmpleado)
@@ -232,53 +222,42 @@ namespace Proyecto.Context
                 .Property(e => e.IdAreaTrabajo)
                 .HasColumnName("IdAreaTrabajo");
 
-            modelBuilder.Entity<Empleado>()
-                .Property(e => e.IdContrato)
-                .HasColumnName("IdContrato");
-
             // Relaciones
 
             modelBuilder.Entity<Empleado>()
                 .HasRequired(e => e.TipoDocumento)
                 .WithMany()
-                .HasForeignKey(e => e.IdTipoDocumento)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.IdTipoDocumento);
 
             modelBuilder.Entity<Empleado>()
                 .HasRequired(e => e.MunicipioNacimiento)
                 .WithMany()
-                .HasForeignKey(e => e.LugarNacimiento)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.LugarNacimiento);
 
             modelBuilder.Entity<Empleado>()
                 .HasRequired(e => e.MunicipioExpedicionDoc)
                 .WithMany()
-                .HasForeignKey(e => e.MunicipioExpedicion)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.MunicipioExpedicion);
 
             modelBuilder.Entity<Empleado>()
-                .HasRequired(e => e.EntidadEPS)
+                .HasRequired(e => e.SSEPS)
                 .WithMany()
-                .HasForeignKey(e => e.EPS)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.EPS);
 
             modelBuilder.Entity<Empleado>()
-                .HasRequired(e => e.EntidadFondoPension)
-                .WithMany()
-                .HasForeignKey(e => e.FondoPension)
-                .WillCascadeOnDelete(false);
+              .HasRequired(e => e.SSAFP)
+              .WithMany()
+              .HasForeignKey(e => e.FondoPension);
 
             modelBuilder.Entity<Empleado>()
-                .HasRequired(e => e.EntidadFondoCesantias)
+                .HasRequired(e => e.SSAFC)
                 .WithMany()
-                .HasForeignKey(e => e.FondoCesantias)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.FondoCesantias);
 
             modelBuilder.Entity<Empleado>()
                 .HasRequired(e => e.AreaTrabajo)
                 .WithMany()
-                .HasForeignKey(e => e.IdAreaTrabajo)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.IdAreaTrabajo);
 
             modelBuilder.Entity<Departamento>()
                 .ToTable("Departamentos")
@@ -448,8 +427,8 @@ namespace Proyecto.Context
                 .IsRequired();
 
             modelBuilder.Entity<Usuario>()
-    .ToTable("Usuarios")
-    .HasKey(u => u.Id);
+                .ToTable("Usuarios")
+                .HasKey(u => u.Id);
 
             modelBuilder.Entity<Usuario>()
                 .Property(u => u.Id)
