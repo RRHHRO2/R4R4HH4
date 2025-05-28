@@ -11,6 +11,7 @@ using Proyecto.Models;
 
 namespace Proyecto.Controllers
 {
+    [Authorize]
     public class TipoDocumentoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

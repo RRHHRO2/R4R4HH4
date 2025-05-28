@@ -1,28 +1,19 @@
-﻿﻿@model Proyecto.Models.LoginViewModel
-
-<form class="px-4 py-3" action="@Url.Action("Login","Home")" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Correo, new { @class = "form-label" })
-        @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @placeholder = "correo@ejemplo.com" })
-        @Html.ValidationMessageFor(m => m.Correo, "", new { @class = "text-danger" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Clave, new { @class = "form-label" })
-        <input type="password" class = "form-control" id="Clave" name="Clave" placeholder="Contraseña" required>
-        @Html.ValidationMessageFor(m => m.Clave, "", new { @class = "text-danger" })
-    </div>
-    <br />
-    <button type="submit" class="btn btn-info">Iniciar Sesión</button>
-</form>
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert alert-danger mt-3">
-        <strong>Atención!</strong>
-        <br />
-        @TempData["AlertMessage"]
-    </div>
+﻿@{
+    Layout = null;
 }
-<div class="dropdown-divider"></div>
-<a class="dropdown-item" href="@Url.Action("Create", "Usuario")">No tienes cuenta? Registrate </a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Login - RRHH</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-md-4 bg-white p-4 rounded shadow">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

@@ -2,8 +2,6 @@
 using Proyecto.Models;
 using Proyecto.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,114 +12,128 @@ namespace Proyecto.Controllers
     {
         private readonly IAuthorizationService _authService = new AuthorizationService();
 
+        // Página principal: muestra login si no hay sesión, o redirige al dashboard
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult LoginPartial()
-        {
-            return PartialView("_LoginPartial");
-        }
-
-        public ActionResult LogoutPartial()
-        {
-            return PartialView("_LogoutPartial");
-        }
-
-        [HttpPost]
-        public ActionResult Login(LoginViewModel model)
-        {
-            string returnUrl = Url.Action("Index", "Home");
-
-            if (!ModelState.IsValid)
+            if (Session["Username"] != null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Dashboard");
             }
 
-            Usuario usuario = new Usuario();
+            return View("Login");
+        }
+
+        // Vista del dashboard (protegida)
+        [Authorize]
+        public ActionResult Dashboard()
+        {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Username = Session["Username"];
+            return View();
+        }
+
+        // Acción de inicio de sesión
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["AlertMessage"] = "Por favor ingrese usuario y clave.";
+                return RedirectToAction("Index");
+            }
+
+            Usuario usuario;
             var result = _authService.Auth(model.Correo, model.Clave, out usuario);
+
             switch (result)
             {
                 case AuthResults.Success:
                     CookieUpdate(usuario);
-                    return Redirect(returnUrl ?? Url.Action("Index", "Home"));
+                    return RedirectToAction("Dashboard");
+
                 case AuthResults.PasswordNotMatch:
-                    TempData["AlertMessage"] = "La Contrasena es incorrecta.";
-                    return RedirectToAction("Index", "Home");
+                    TempData["AlertMessage"] = "La contraseña es incorrecta.";
+                    break;
+
                 case AuthResults.NotExists:
                     TempData["AlertMessage"] = "El usuario no existe.";
-                    return RedirectToAction("Index", "Home");
+                    break;
+
                 default:
-                    return RedirectToAction("Index", "Home");
+                    TempData["AlertMessage"] = "Ocurrió un error inesperado.";
+                    break;
             }
+
+            return RedirectToAction("Index");
         }
 
+        // Acción de cierre de sesión
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
-            Session.RemoveAll();
+            Session.Clear();
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
+        // Refrescar cookies (opcional, útil para mantener sesión activa con AJAX)
         [HttpPost]
         [AllowAnonymous]
-        [OutputCache(NoStore = true, Duration = 0)]
         [ValidateAntiForgeryToken]
+        [OutputCache(NoStore = true, Duration = 0)]
         public ActionResult RefreshLogin(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new { Message = "" }, JsonRequestBehavior.AllowGet);
             }
-            Usuario usuario = new Usuario();
+
+            Usuario usuario;
             var result = _authService.Auth(model.Correo, model.Clave, out usuario);
+
             switch (result)
             {
                 case AuthResults.Success:
                     CookieUpdate(usuario);
-                    return Json(new { Message = "Cookies Refrescados Correctamente." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Message = "Sesión actualizada correctamente." }, JsonRequestBehavior.AllowGet);
+
                 case AuthResults.PasswordNotMatch:
-                    return Json(new { Message = "La contraseña no es valida." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Message = "La contraseña es incorrecta." }, JsonRequestBehavior.AllowGet);
+
                 case AuthResults.NotExists:
-                    return Json(new { Message = "El usuario no es valido." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Message = "El usuario no existe." }, JsonRequestBehavior.AllowGet);
+
                 default:
-                    return Json(new { Message = "Error" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Message = "Error inesperado." }, JsonRequestBehavior.AllowGet);
             }
         }
 
+        // Interno: Crea la cookie de autenticación
         private void CookieUpdate(Usuario usuario)
         {
-            var ticket = new FormsAuthenticationTicket(2,
-                    usuario.Correo,
-                    DateTime.Now,
-                    DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes),
-                    false,
-                    JsonConvert.SerializeObject(usuario, new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    })
+            var ticket = new FormsAuthenticationTicket(
+                2,
+                usuario.Correo,
+                DateTime.Now,
+                DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes),
+                false,
+                JsonConvert.SerializeObject(usuario, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                })
             );
+
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
+            Response.Cookies.Add(cookie);
+
             Session["Username"] = usuario.Correo;
-            Session["Rol"] = usuario.Rol.NombreRol;
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)) { };
-            Response.AppendCookie(cookie);
+            Session["Rol"] = usuario.Rol?.NombreRol;
         }
     }
 }

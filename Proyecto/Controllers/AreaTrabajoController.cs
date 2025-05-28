@@ -11,6 +11,7 @@ using Proyecto.Models;
 
 namespace Proyecto.Controllers
 {
+    [Authorize]
     public class AreaTrabajoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

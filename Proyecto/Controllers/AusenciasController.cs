@@ -11,6 +11,7 @@ using Proyecto.Models;
 
 namespace Proyecto.Controllers
 {
+    [Authorize]
     public class AusenciasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

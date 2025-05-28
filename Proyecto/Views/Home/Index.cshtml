@@ -1,37 +1,63 @@
 ﻿@{
-    ViewBag.Title = "Inicio";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = null;
 }
 
-<style>
-    .welcome-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-        text-align: center;
-        background: linear-gradient(90deg, #4e54c8, #8f94fb);
-        color: white;
-        border-radius: 12px;
-        margin-top: 30px;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - RRHH</title>
 
-        .welcome-container h1 {
-            font-size: 3rem;
-            font-weight: bold;
-        }
+    <link href="~/Content/SBAdmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/SBAdmin2/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet" />
+</head>
+<body class="bg-gradient-primary">
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-6 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-5">
+                        <!-- Login Form -->
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">¡Bienvenido a RRHH!</h1>
+                        </div>
 
-        .welcome-container p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-</style>
+                        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                @Html.Label("Usuario")
+                                @Html.TextBox("username", null, new { @class = "form-control form-control-user", placeholder = "Ingrese su usuario", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Contraseña")
+                                @Html.Password("password", null, new { @class = "form-control form-control-user", placeholder = "Ingrese su contraseña", required = "required" })
+                            </div>
 
-<div class="container">
-    <div class="welcome-container">
-        <div>
-            <h1>Bienvenido al Sistema de Recursos Humanos</h1>
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+                            }
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Ingresar</button>
+                        }
+
+                        <hr />
+                        <div class="text-center">
+                            <small>&copy; @DateTime.Now.Year - RRHH</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+    <script src="~/Content/SBAdmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/SBAdmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/SBAdmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Content/SBAdmin2/js/sb-admin-2.min.js"></script>
+</body>
+</html>
