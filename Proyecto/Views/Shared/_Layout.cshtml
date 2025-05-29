@@ -18,6 +18,35 @@
             color: #f1f1f1 !important;
         }
 
+            body.dark-mode .card {
+                background-color: #1e1e1e;
+                border-color: #2c2c2c;
+            }
+
+            body.dark-mode .text-gray-800,
+            body.dark-mode .text-dark {
+                color: #f1f1f1 !important;
+            }
+
+            body.dark-mode .text-gray-300 {
+                color: #cfcfcf !important;
+            }
+
+            body.dark-mode .bg-white {
+                background-color: #1e1e1e !important;
+                color: #f1f1f1 !important;
+            }
+
+            body.dark-mode .sidebar {
+                background-color: #212121 !important;
+            }
+
+            body.dark-mode .nav-link,
+            body.dark-mode .sidebar-brand-text,
+            body.dark-mode .fas {
+                color: #f1f1f1 !important;
+            }
+
         .sidebar {
             transition: all 0.3s ease-in-out;
         }
@@ -48,7 +77,6 @@
         @if (Session["Username"] != null)
         {
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- Sidebar Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
@@ -97,7 +125,6 @@
 
                 <hr class="sidebar-divider" />
 
-                <!-- Logout Button -->
                 <li class="nav-item">
                     @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { @class = "nav-link p-0" }))
                     {
@@ -111,7 +138,6 @@
 
                 <hr class="sidebar-divider d-none d-md-block" />
 
-                <!-- Sidebar Toggler -->
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -125,6 +151,7 @@
                         <i class="fas fa-moon"></i> Modo Oscuro
                     </button>
                 </div>
+
                 <div class="container-fluid">
                     @RenderBody()
                 </div>
@@ -140,7 +167,6 @@
         </div>
     </div>
 
-    <!-- Scroll to Top -->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -155,13 +181,21 @@
     <script>
         AOS.init();
 
+        // Activar modo oscuro desde localStorage
+        if (localStorage.getItem("dark-mode") === "true") {
+            document.body.classList.add("dark-mode");
+        }
+
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
         }
 
         document.getElementById("sidebarToggle").addEventListener("click", function () {
             document.querySelector(".sidebar").classList.toggle("toggled");
         });
     </script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
