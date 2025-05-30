@@ -76,72 +76,120 @@
     <div id="wrapper">
         @if (Session["Username"] != null)
         {
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+            if (Session["Rol"]?.ToString() == "Administrador")
+            {
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fas fa-laugh-wink"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">RRHH</div>
+                    </a>
+
+                    <hr class="sidebar-divider my-0" />
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Empleado")">
+                            <i class="fas fa-fw fa-user-tie"></i>
+                            <span>Empleados</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Contrato")">
+                            <i class="fas fa-fw fa-file-contract"></i>
+                            <span>Contratos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "AreaTrabajo")">
+                            <i class="fas fa-fw fa-building"></i>
+                            <span>Áreas de Trabajo</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Ausencias")">
+                            <i class="fas fa-fw fa-calendar-times"></i>
+                            <span>Ausencias</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Usuarios")">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "TipoDocumento")">
+                            <i class="fas fa-fw fa-id-card"></i>
+                            <span>Tipos de Documento</span>
+                        </a>
+                    </li>
+
+                    <hr class="sidebar-divider" />
+
+                    <li class="nav-item">
+                        @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { @class = "nav-link p-0" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-link nav-link text-left text-white w-100" style="text-align:left;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Cerrar Sesión</span>
+                            </button>
+                        }
+                    </li>
+
+                    <hr class="sidebar-divider d-none d-md-block" />
+
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
                     </div>
-                    <div class="sidebar-brand-text mx-3">RRHH</div>
-                </a>
-
-                <hr class="sidebar-divider my-0" />
-
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "Empleado")">
-                        <i class="fas fa-fw fa-user-tie"></i>
-                        <span>Empleados</span>
+                </ul>
+            }
+            else if (Session["Rol"]?.ToString() == "Usuario")
+            {
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fas fa-laugh-wink"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">RRHH</div>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "Contrato")">
-                        <i class="fas fa-fw fa-file-contract"></i>
-                        <span>Contratos</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "AreaTrabajo")">
-                        <i class="fas fa-fw fa-building"></i>
-                        <span>Áreas de Trabajo</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "Ausencias")">
-                        <i class="fas fa-fw fa-calendar-times"></i>
-                        <span>Ausencias</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "Usuarios")">
-                        <i class="fas fa-fw fa-users"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "TipoDocumento")">
-                        <i class="fas fa-fw fa-id-card"></i>
-                        <span>Tipos de Documento</span>
-                    </a>
-                </li>
 
-                <hr class="sidebar-divider" />
+                    <hr class="sidebar-divider my-0" />
 
-                <li class="nav-item">
-                    @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { @class = "nav-link p-0" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-link nav-link text-left text-white w-100" style="text-align:left;">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Cerrar Sesión</span>
-                        </button>
-                    }
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Contrato")">
+                            <i class="fas fa-fw fa-file-contract"></i>
+                            <span>Contratos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Ausencias")">
+                            <i class="fas fa-fw fa-calendar-times"></i>
+                            <span>Ausencias</span>
+                        </a>
+                    </li>
 
-                <hr class="sidebar-divider d-none d-md-block" />
+                    <hr class="sidebar-divider" />
 
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
-            </ul>
+                    <li class="nav-item">
+                        @using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { @class = "nav-link p-0" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-link nav-link text-left text-white w-100" style="text-align:left;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Cerrar Sesión</span>
+                            </button>
+                        }
+                    </li>
+
+                    <hr class="sidebar-divider d-none d-md-block" />
+
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
+                </ul>
+            }
         }
 
         <div id="content-wrapper" class="d-flex flex-column">
