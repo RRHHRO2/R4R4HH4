@@ -17,9 +17,23 @@ namespace Proyecto.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Empleado
-        public ActionResult Index()
+        public ActionResult Index(string filtroCedula)
         {
-            var empleados = db.Empleados.Include(e => e.AreaTrabajo).Include(e => e.SSEPS).Include(e => e.SSAFC).Include(e => e.SSAFP).Include(e => e.MunicipioExpedicionDoc).Include(e => e.MunicipioNacimiento).Include(e => e.TipoDocumento);
+            var empleados = db.Empleados
+                .Include(e => e.AreaTrabajo)
+                .Include(e => e.SSEPS)
+                .Include(e => e.SSAFC)
+                .Include(e => e.SSAFP)
+                .Include(e => e.MunicipioExpedicionDoc)
+                .Include(e => e.MunicipioNacimiento)
+                .Include(e => e.TipoDocumento)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(filtroCedula))
+            {
+                empleados = empleados.Where(e => e.NumeroDocumento.Contains(filtroCedula));
+            }
+
             return View(empleados.ToList());
         }
 
@@ -52,8 +66,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Empleado/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdEmpleado,IdTipoDocumento,NumeroDocumento,FechaExpedicion,MunicipioExpedicion,Nombres,Apellidos,LugarNacimiento,Direccion,Barrio,Telefono,Celular,Correo,EPS,FondoPension,FondoCesantias,IdAreaTrabajo,IdContrato")] Empleado empleado)
@@ -98,8 +110,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Empleado/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdEmpleado,IdTipoDocumento,NumeroDocumento,FechaExpedicion,MunicipioExpedicion,Nombres,Apellidos,LugarNacimiento,Direccion,Barrio,Telefono,Celular,Correo,EPS,FondoPension,FondoCesantias,IdAreaTrabajo,IdContrato")] Empleado empleado)

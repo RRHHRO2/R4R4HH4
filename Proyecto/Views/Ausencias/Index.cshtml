@@ -1,28 +1,46 @@
 ﻿@model IEnumerable<Proyecto.Models.Ausencia>
 
 @{
-    ViewBag.Title = "Listado de Ausencias";
+    ViewBag.Title = "Ausencias";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
     <div class="card shadow-lg border-0 rounded-4">
         <div class="card-header bg-gradient-primary text-white rounded-top-4 d-flex justify-content-between align-items-center">
-            <h5 class="mb-0 fw-semibold"><i class="fas fa-calendar-minus me-2"></i>Listado de Ausencias</h5>
-            <a href="@Url.Action("Create")" class="btn btn-light btn-sm shadow-sm rounded-pill px-3" data-bs-toggle="tooltip" title="Registrar nueva ausencia">
-                <i class="fas fa-plus-circle me-1"></i> Nueva Ausencia
-            </a>
+            <h5 class="mb-0 fw-semibold"><i class="fas fa-calendar-times me-2"></i>Lista de Ausencias</h5>
+
+            <div class="d-flex align-items-center">
+                <div class="filter-wrapper me-3">
+                    @using (Html.BeginForm("Index", "Ausencias", FormMethod.Get, new { @class = "filter-toggle d-flex align-items-center" }))
+                    {
+                        <i class="fas fa-filter me-2"></i>
+                        <input type="text" name="filtroCedula" class="form-control form-control-sm filter-input" placeholder="Buscar por cédula"
+                               value="@Request.QueryString["filtroCedula"]" />
+                        <button class="btn btn-sm btn-outline-light ms-2" type="submit" data-bs-toggle="tooltip" title="Filtrar">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    }
+                </div>
+
+                <a href="@Url.Action("Create")" class="btn btn-light btn-sm shadow-sm rounded-pill px-3" data-bs-toggle="tooltip" title="Agregar nueva ausencia">
+                    <i class="fas fa-plus-circle me-1"></i> Nuevo
+                </a>
+            </div>
         </div>
+
         <div class="card-body bg-light rounded-bottom-4">
             <div class="table-responsive">
                 <table class="table table-hover table-striped align-middle shadow-sm rounded">
                     <thead class="table-dark text-center">
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Empleado.NumeroDocumento)</th>
-                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaInicio)</th>
-                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FechaFin)</th>
-                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TipoAusencia)</th>
-                            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Justificacion)</th>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Tipo Ausencia</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                            <th>Justificación</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -31,9 +49,11 @@
                         {
                             <tr class="align-middle">
                                 <td>@item.Empleado.NumeroDocumento</td>
+                                <td>@item.Empleado.Nombres</td>
+                                <td>@item.Empleado.Apellidos</td>
+                                <td>@item.TipoAusencia</td>
                                 <td>@item.FechaInicio.ToString("dd/MM/yyyy")</td>
                                 <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
-                                <td>@item.TipoAusencia</td>
                                 <td>@item.Justificacion</td>
                                 <td class="text-center">
                                     <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-outline-warning btn-sm rounded-pill mx-1" data-bs-toggle="tooltip" title="Editar">
@@ -54,6 +74,51 @@
         </div>
     </div>
 </div>
+
+<style>
+    .filter-wrapper {
+        transition: width 0.3s ease;
+        overflow: hidden;
+    }
+
+    .filter-toggle {
+        width: 45px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 4px 8px;
+        transition: width 0.4s ease;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+        .filter-toggle:hover {
+            width: 300px;
+        }
+
+        .filter-toggle .filter-input {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+        }
+
+        .filter-toggle:hover .filter-input {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .filter-toggle i {
+            color: white;
+        }
+
+        .filter-toggle input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .filter-toggle input:focus {
+            box-shadow: none;
+        }
+</style>
 
 @section Scripts {
     <script>

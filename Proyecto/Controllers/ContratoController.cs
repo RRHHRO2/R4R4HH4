@@ -17,9 +17,19 @@ namespace Proyecto.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contrato
-        public ActionResult Index()
+        public ActionResult Index(string filtroCedula)
         {
-            var contratos = db.Contratos.Include(c => c.Empleado).Include(c => c.TipoContrato);
+            var contratos = db.Contratos
+                .Include(c => c.Empleado)
+                .Include(c => c.Empleado.TipoDocumento)
+                .Include(c => c.TipoContrato)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(filtroCedula))
+            {
+                contratos = contratos.Where(c => c.Empleado.NumeroDocumento.Contains(filtroCedula));
+            }
+
             return View(contratos.ToList());
         }
 
@@ -47,8 +57,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Contrato/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,IdTipoContrato,IdEmpleado,FechaInicio,FechaFin")] Contrato contrato)
@@ -83,8 +91,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Contrato/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,IdTipoContrato,IdEmpleado,FechaInicio,FechaFin")] Contrato contrato)

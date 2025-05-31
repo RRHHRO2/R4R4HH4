@@ -17,9 +17,15 @@ namespace Proyecto.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Ausencias
-        public ActionResult Index()
+        public ActionResult Index(string filtroCedula)
         {
             var ausencias = db.Ausencias.Include(a => a.Empleado);
+
+            if (!string.IsNullOrEmpty(filtroCedula))
+            {
+                ausencias = ausencias.Where(a => a.Empleado.NumeroDocumento.Contains(filtroCedula));
+            }
+
             return View(ausencias.ToList());
         }
 
@@ -46,8 +52,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Ausencias/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,IdEmpleado,FechaInicio,FechaFin,TipoAusencia,Justificacion")] Ausencia ausencia)
@@ -80,8 +84,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Ausencias/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,IdEmpleado,FechaInicio,FechaFin,TipoAusencia,Justificacion")] Ausencia ausencia)
