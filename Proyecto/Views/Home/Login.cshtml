@@ -23,14 +23,14 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-            /* Capa oscura */
-            body::before {
-                content: "";
-                position: fixed;
-                inset: 0;
-                background: rgba(34, 74, 190, 0.75); /* azul oscuro translúcido */
-                z-index: 0;
-            }
+        /* Capa oscura */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(34, 74, 190, 0.75); /* azul oscuro translúcido */
+            z-index: 0;
+        }
 
         .container {
             position: relative;
@@ -44,11 +44,33 @@
             background-color: rgba(255, 255, 255, 0.95);
         }
 
-        /* Icono del logo con sombra suave */
+        /* Animaciones para el icono logo */
+        @@keyframes swing {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 4px rgba(34, 74, 190, 0.6));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 10px rgba(34, 74, 190, 0.8));
+            }
+        }
+
         .logo-icon {
             font-size: 4rem;
             color: #224abe;
             text-shadow: 1px 1px 4px rgba(34, 74, 190, 0.6);
+            animation: swing 3s ease-in-out infinite, pulse 4s ease-in-out infinite;
+            display: inline-block;
+            transform-origin: 50% 70%;
         }
 
         /* Input con íconos */
@@ -74,10 +96,10 @@
             transition: border-color 0.3s ease;
         }
 
-            .form-control-user:focus {
-                border-color: #4e73df;
-                box-shadow: 0 0 8px rgba(78, 115, 223, 0.6);
-            }
+        .form-control-user:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 8px rgba(78, 115, 223, 0.6);
+        }
 
         .btn-user {
             padding: 0.75rem;
@@ -88,9 +110,9 @@
             transition: background 0.3s ease;
         }
 
-            .btn-user:hover {
-                background: linear-gradient(45deg, #2e54d4, #385cdb);
-            }
+        .btn-user:hover {
+            background: linear-gradient(45deg, #2e54d4, #385cdb);
+        }
 
         .text-gray-900 {
             color: #224abe !important;
