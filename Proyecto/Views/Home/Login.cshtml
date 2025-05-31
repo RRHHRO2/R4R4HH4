@@ -14,22 +14,23 @@
     <link href="~/Content/SBAdmin2/css/sb-admin-2.min.css" rel="stylesheet" />
 
     <style>
-        /* Fondo con imagen y overlay */
+        /* Fondo con video */
         body {
             min-height: 100vh;
-            background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
+            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
-        /* Capa oscura */
-        body::before {
-            content: "";
+        /* Video de fondo */
+        #background-video {
             position: fixed;
-            inset: 0;
-            background: rgba(34, 74, 190, 0.75); /* azul oscuro translúcido */
-            z-index: 0;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
         }
 
         .container {
@@ -37,14 +38,12 @@
             z-index: 1;
         }
 
-        /* Tarjeta blanca con sombra y bordes redondeados */
         .card {
             border-radius: 1rem;
             box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.3);
             background-color: rgba(255, 255, 255, 0.95);
         }
 
-        /* Animaciones para el icono logo */
         @@keyframes swing {
             0% { transform: rotate(0deg); }
             25% { transform: rotate(10deg); }
@@ -73,7 +72,6 @@
             transform-origin: 50% 70%;
         }
 
-        /* Input con íconos */
         .form-icon {
             position: absolute;
             left: 15px;
@@ -131,6 +129,12 @@
     </style>
 </head>
 <body>
+    <!-- Video de fondo -->
+    <video autoplay muted loop id="background-video">
+        <source src="~/Content/videos/fondo.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+
     <div class="container">
         <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
             <div class="col-xl-5 col-lg-6 col-md-8">
