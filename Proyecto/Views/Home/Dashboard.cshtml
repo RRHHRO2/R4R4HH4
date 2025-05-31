@@ -162,4 +162,131 @@ else if (rol == "Usuario")
             </div>
         </div>
     </div>
+
+    <style>
+        /* Botón flotante */
+        .btn-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: #000000; /* azul elegante */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 16px;
+            transition: width 0.3s ease, border-radius 0.3s ease;
+            z-index: 1050;
+            user-select: none;
+        }
+
+            /* Expande el botón al pasar cursor */
+            .btn-flotante:hover {
+                width: 160px;
+                border-radius: 28px;
+            }
+
+            /* Texto oculto inicialmente */
+            .btn-flotante .texto {
+                color: white;
+                font-weight: 600;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin-left: 12px;
+                opacity: 0;
+                white-space: nowrap;
+                transition: opacity 0.3s ease 0.15s;
+                pointer-events: none;
+                user-select: none;
+            }
+
+            /* Mostrar texto al hacer hover */
+            .btn-flotante:hover .texto {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Signo de interrogación estilo */
+            .btn-flotante .icono {
+                color: #ff0000;
+                font-size: 28px;
+                font-weight: bold;
+                user-select: none;
+            }
+    </style>
+
+    <a href="https://api.whatsapp.com/send?phone=573158967128&text=Hola,%20necesito%20ayuda"
+       target="_blank"
+       class="btn-flotante"
+       aria-label="¿Necesitas ayuda?">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="28"
+             height="28"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="white"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="icono">
+            <circle cx="12" cy="12" r="10" fill="#0056b3" />
+            <path d="M9 9a3 3 0 0 1 6 0c0 2-3 3-3 6" />
+            <line x1="12" y1="17" x2="12" y2="17" />
+        </svg>
+        <span class="texto">¿Necesitas ayuda?</span>
+    </a>
+
+    <style>
+        .btn-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: #0056b3;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 16px;
+            transition: width 0.3s ease, border-radius 0.3s ease;
+            z-index: 1050;
+            user-select: none;
+        }
+
+            .btn-flotante:hover {
+                width: 160px;
+                border-radius: 28px;
+            }
+
+            .btn-flotante .texto {
+                color: white;
+                font-weight: 600;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin-left: 12px;
+                opacity: 0;
+                white-space: nowrap;
+                transition: opacity 0.3s ease 0.15s;
+                pointer-events: none;
+                user-select: none;
+            }
+
+            .btn-flotante:hover .texto {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Ajustes para el SVG */
+            .btn-flotante .icono {
+                flex-shrink: 0;
+            }
+    </style>
+
 }
