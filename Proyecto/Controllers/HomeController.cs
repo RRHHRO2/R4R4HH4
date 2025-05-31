@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Proyecto.Context;
 using Proyecto.Models;
 using Proyecto.Services;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -11,6 +13,7 @@ namespace Proyecto.Controllers
     public class HomeController : Controller
     {
         private readonly IAuthorizationService _authService = new AuthorizationService();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // Página principal: muestra login si no hay sesión, o redirige al dashboard
         public ActionResult Index()
@@ -30,6 +33,8 @@ namespace Proyecto.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            ViewBag.TotalEmpleados = db.Empleados.Count();
 
             ViewBag.Username = Session["Username"];
             return View();

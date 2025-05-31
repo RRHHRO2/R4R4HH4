@@ -110,7 +110,7 @@ namespace Proyecto.Controllers
                 db.SaveChanges();
 
                 // ✅ Mensaje de éxito
-                TempData["SuccessMessage"] = "Usuario editado correctamente.";
+                TempData["SuccessMessage"] = "Usuario editado correctamente";
 
                 return RedirectToAction("Index");
             }
