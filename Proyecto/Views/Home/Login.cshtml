@@ -9,27 +9,56 @@
 <head>
     <meta charset="utf-8" />
     <title>Login - RRHH</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="~/Content/SBAdmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="~/Content/SBAdmin2/css/sb-admin-2.min.css" rel="stylesheet" />
 
     <style>
+        /* Fondo con imagen y overlay */
         body {
-            background: linear-gradient(to right, #4e73df, #224abe);
             min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+            /* Capa oscura */
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background: rgba(34, 74, 190, 0.75); /* azul oscuro translúcido */
+                z-index: 0;
+            }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tarjeta blanca con sombra y bordes redondeados */
         .card {
             border-radius: 1rem;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.95);
         }
 
+        /* Icono del logo con sombra suave */
+        .logo-icon {
+            font-size: 4rem;
+            color: #224abe;
+            text-shadow: 1px 1px 4px rgba(34, 74, 190, 0.6);
+        }
+
+        /* Input con íconos */
         .form-icon {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6c757d;
+            color: #224abe;
+            opacity: 0.7;
         }
 
         .form-group {
@@ -37,16 +66,45 @@
         }
 
         .form-control-user {
-            padding-left: 2.5rem;
+            padding-left: 2.8rem;
             height: 3rem;
+            font-size: 1rem;
+            border-radius: 0.75rem;
+            border: 1.5px solid #224abe;
+            transition: border-color 0.3s ease;
         }
+
+            .form-control-user:focus {
+                border-color: #4e73df;
+                box-shadow: 0 0 8px rgba(78, 115, 223, 0.6);
+            }
 
         .btn-user {
             padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background: linear-gradient(45deg, #224abe, #4e73df);
+            border: none;
+            transition: background 0.3s ease;
         }
 
-        .logo-icon {
-            font-size: 3.5rem;
+            .btn-user:hover {
+                background: linear-gradient(45deg, #2e54d4, #385cdb);
+            }
+
+        .text-gray-900 {
+            color: #224abe !important;
+            font-weight: 700;
+        }
+
+        .text-muted {
+            color: #3a4e84 !important;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #842029;
+            border-radius: 0.5rem;
         }
     </style>
 </head>
@@ -57,7 +115,7 @@
                 <div class="card o-hidden my-5">
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <i class="fas fa-user-shield text-primary logo-icon mb-3"></i>
+                            <i class="fas fa-user-shield logo-icon mb-3"></i>
                             <h1 class="h4 text-gray-900">Bienvenido a RRHH</h1>
                             <p class="text-muted">Inicia sesión para continuar</p>
                         </div>
@@ -85,8 +143,8 @@
                                 </div>
                             }
 
-                            <button type="submit" class="btn btn-primary btn-user btn-block">
-                                <i class="fas fa-sign-in-alt mr-2"></i> Iniciar Sesión
+                            <button type="submit" class="btn btn-user btn-block">
+                                <i class="fas fa-sign-in-alt me-2"></i> Iniciar Sesión
                             </button>
                         }
 

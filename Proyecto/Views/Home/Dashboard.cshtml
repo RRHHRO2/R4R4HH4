@@ -2,106 +2,164 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    // Conversión segura de ViewBag
     int totalEmpleados = ViewBag.TotalEmpleados != null ? (int)ViewBag.TotalEmpleados : 0;
     int totalAusencias = ViewBag.TotalAusencias != null ? (int)ViewBag.TotalAusencias : 0;
     int totalContratos = ViewBag.TotalContratos != null ? (int)ViewBag.TotalContratos : 0;
-    var contrataciones = ViewBag.ContratacionesMensuales as int[] ?? new int[6];
+
+    var rol = Session["Rol"]?.ToString() ?? "";
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800" data-aos="fade-right">Bienvenido al Panel de Control</h1>
 </div>
 
-<div class="row">
-    <!-- Empleados Activos -->
-    <div class="col-xl-4 col-md-6 mb-4" data-aos="zoom-in-up">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Empleados Activos</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@totalEmpleados</div>
+@if (rol == "Administrador")
+{
+    <div class="row">
+        <!-- Empleados Activos -->
+        <div class="col-xl-6 col-md-6 mb-4" data-aos="zoom-in-up">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Empleados Activos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@totalEmpleados</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ausencias del Mes -->
+        <div class="col-xl-6 col-md-6 mb-4" data-aos="zoom-in-up">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Ausencias del Mes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@totalAusencias</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-times fa-2x text-gray-300"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Ausencias del Mes -->
-    <div class="col-xl-4 col-md-6 mb-4" data-aos="zoom-in-up">
-        <div class="card border-left-danger shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Ausencias del Mes</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@totalAusencias</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calendar-times fa-2x text-gray-300"></i>
-                    </div>
+    <!-- Gráfico -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7 mx-auto" data-aos="fade-up">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary text-center w-100">Contratos Activos</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="elegantChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Contratos Activos -->
-    <div class="col-xl-4 col-md-6 mb-4" data-aos="zoom-in-up">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Contratos Activos</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@totalContratos</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-file-contract fa-2x text-gray-300"></i>
-                    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script>
+        const ctx = document.getElementById('elegantChart').getContext('2d');
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(78, 115, 223, 0.8)');
+        gradient.addColorStop(1, 'rgba(78, 115, 223, 0.3)');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Contratos Activos'],
+                datasets: [{
+                    label: 'Total Contratos',
+                    data: [@totalContratos],
+                    backgroundColor: gradient,
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    maxBarThickness: 80,
+                    hoverBackgroundColor: 'rgba(78, 115, 223, 1)',
+                    hoverBorderColor: 'rgba(78, 115, 223, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutBounce'
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: 'white',
+                        anchor: 'center',
+                        align: 'center',
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        },
+                        formatter: function(value) {
+                            return value;
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0,
+                            font: {
+                                size: 14,
+                            }
+                        },
+                        grid: {
+                            color: '#eaeaea'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    </script>
+}
+else if (rol == "Usuario")
+{
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+            <div class="card border-info shadow-sm rounded-4 p-4 text-center" style="background: linear-gradient(135deg, #e0f0ff, #f8fbff);">
+                <div class="mb-3">
+                    <i class="fas fa-user-check fa-3x text-info"></i>
                 </div>
+                <h4 class="card-title fw-bold text-info mb-2">Bienvenido, usuario</h4>
+                <p class="card-text fs-5 text-secondary">Este mes has tenido <span class="fw-semibold text-primary">@totalAusencias</span> ausencias.</p>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Gráfico -->
-<div class="row">
-    <div class="col-xl-8 col-lg-7" data-aos="fade-up">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Contrataciones Mensuales</h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="lineChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('lineChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Contrataciones',
-                data: @Html.Raw(Json.Encode(contrataciones)),
-                borderColor: 'rgba(78, 115, 223, 1)',
-                backgroundColor: 'rgba(78, 115, 223, 0.05)',
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { display: true } },
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-</script>
+}

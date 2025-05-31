@@ -35,6 +35,8 @@ namespace Proyecto.Controllers
             }
 
             ViewBag.TotalEmpleados = db.Empleados.Count();
+            ViewBag.TotalAusencias = db.Ausencias.Count();
+            ViewBag.TotalContratos = db.Contratos.Count();
 
             ViewBag.Username = Session["Username"];
             return View();
