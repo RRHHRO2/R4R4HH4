@@ -102,18 +102,24 @@ namespace Proyecto.Controllers
                 if (!string.IsNullOrEmpty(usuario.NuevaContrasena))
                 {
                     usuario.Contrasena = _passwordEncripter.Encript(usuario.NuevaContrasena, new List<byte[]>()
-                  .AddHash(usuario.HashKey)
-                  .AddHash(usuario.HashIV));
+                      .AddHash(usuario.HashKey)
+                      .AddHash(usuario.HashIV));
                 }
 
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // ✅ Mensaje de éxito
+                TempData["SuccessMessage"] = "Usuario editado correctamente.";
+
                 return RedirectToAction("Index");
             }
+
             ViewBag.IdArea = new SelectList(db.AreasTrabajo, "IdArea", "NombreArea", usuario.IdArea);
             ViewBag.IdRol = new SelectList(db.Roles, "IdRol", "NombreRol", usuario.IdRol);
             return View(usuario);
         }
+
 
         // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)

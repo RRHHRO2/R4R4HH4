@@ -23,7 +23,6 @@ namespace Proyecto.Controllers
             return View("Login");
         }
 
-        // Vista del dashboard (protegida)
         [Authorize]
         public ActionResult Dashboard()
         {
@@ -36,7 +35,6 @@ namespace Proyecto.Controllers
             return View();
         }
 
-        // Acción de inicio de sesión
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
@@ -54,7 +52,7 @@ namespace Proyecto.Controllers
             {
                 case AuthResults.Success:
                     CookieUpdate(usuario);
-                    return RedirectToAction("Dashboard");
+                    return RedirectToAction("Dashboard", "Home");
 
                 case AuthResults.PasswordNotMatch:
                     TempData["AlertMessage"] = "La contraseña es incorrecta.";
@@ -117,6 +115,8 @@ namespace Proyecto.Controllers
         // Interno: Crea la cookie de autenticación
         private void CookieUpdate(Usuario usuario)
         {
+            FormsAuthentication.SetAuthCookie(usuario.Correo, false);
+
             var ticket = new FormsAuthenticationTicket(
                 2,
                 usuario.Correo,
