@@ -6,31 +6,31 @@
 }
 
 <div class="container mt-4">
-    <h2 class="mb-3">Detalles de Ausencia</h2>
-
     <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="bi bi-info-circle"></i> Detalles de Ausencia</h4>
+        </div>
         <div class="card-body">
-            <h5 class="card-title">Información de la Ausencia</h5>
-            <dl class="row">
-                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Empleado.NumeroDocumento)</dt>
+            <dl class="row mb-0">
+                <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Empleado.NumeroDocumento)</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Empleado.NumeroDocumento)</dd>
 
-                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FechaInicio)</dt>
+                <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaInicio)</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaInicio)</dd>
 
-                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FechaFin)</dt>
+                <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaFin)</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaFin)</dd>
 
-                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TipoAusencia)</dt>
+                <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.TipoAusencia)</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.TipoAusencia)</dd>
 
-                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Justificacion)</dt>
+                <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.Justificacion)</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Justificacion)</dd>
             </dl>
         </div>
     </div>
 
-    <div class="mt-3">
+    <div class="d-flex justify-content-end mt-3">
         @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning me-2" })
         @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-secondary" })
     </div>
