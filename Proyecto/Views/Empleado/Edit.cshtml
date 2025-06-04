@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.NumeroDocumento)
-                        @Html.EditorFor(model => model.NumeroDocumento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model.NumeroDocumento, new { @class = "form-control", type = "text", pattern = "\\d+", title = "Solo números" })
                         @Html.ValidationMessageFor(model => model.NumeroDocumento, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
@@ -41,19 +41,19 @@
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.Nombres)
-                        @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model.Nombres, new { @class = "form-control", pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñ ]+", title = "Solo letras" })
                         @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.Apellidos)
-                        @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model.Apellidos, new { @class = "form-control", pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñ ]+", title = "Solo letras" })
                         @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- CAMPO PROFESIÓN -->
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.Profesion)
-                        @Html.TextBoxFor(model => model.Profesion, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Profesion, new { @class = "form-control", pattern = "[A-Za-zÁÉÍÓÚáéíóúÑñ ]+", title = "Solo letras" })
                         @Html.ValidationMessageFor(model => model.Profesion, "", new { @class = "text-danger" })
                     </div>
 

@@ -16,167 +16,169 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-            <div class="row g-4">
+                <div class="row g-4">
 
-                <!-- Tipo de Documento -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.IdTipoDocumento, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                        @Html.DropDownListFor(m => m.IdTipoDocumento, (IEnumerable<SelectListItem>)ViewBag.TiposDocumento, "-- Seleccione --", new { @class = "form-select" })
+                    <!-- Tipo de Documento -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.IdTipoDocumento, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                            @Html.DropDownListFor(m => m.IdTipoDocumento, (IEnumerable<SelectListItem>)ViewBag.TiposDocumento, "-- Seleccione --", new { @class = "form-select" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.IdTipoDocumento, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.IdTipoDocumento, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Número de Documento -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.NumeroDocumento, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
-                        @Html.EditorFor(m => m.NumeroDocumento, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- Número de Documento -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.NumeroDocumento, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                            @Html.TextBoxFor(m => m.NumeroDocumento, new { @class = "form-control", inputmode = "numeric", pattern = "[0-9]+", maxlength = 20 })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.NumeroDocumento, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.NumeroDocumento, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Fecha de Expedición -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.FechaExpedicion, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                        @Html.EditorFor(m => m.FechaExpedicion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    <!-- Fecha de Expedición -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.FechaExpedicion, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                            @Html.TextBoxFor(m => m.FechaExpedicion, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FechaExpedicion, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.FechaExpedicion, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Municipio de Expedición -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.MunicipioExpedicion, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                        @Html.DropDownListFor(m => m.MunicipioExpedicion, (IEnumerable<SelectListItem>)ViewBag.Municipios, "-- Seleccione --", new { @class = "form-select" })
+                    <!-- Municipio de Expedición -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.MunicipioExpedicion, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            @Html.DropDownListFor(m => m.MunicipioExpedicion, (IEnumerable<SelectListItem>)ViewBag.Municipios, "-- Seleccione --", new { @class = "form-select" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.MunicipioExpedicion, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.MunicipioExpedicion, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Lugar de Nacimiento -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.LugarNacimiento, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
-                        @Html.DropDownListFor(m => m.LugarNacimiento, (IEnumerable<SelectListItem>)ViewBag.LugaresNacimiento, "-- Seleccione --", new { @class = "form-select" })
+                    <!-- Lugar de Nacimiento -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.LugarNacimiento, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                            @Html.DropDownListFor(m => m.LugarNacimiento, (IEnumerable<SelectListItem>)ViewBag.LugaresNacimiento, "-- Seleccione --", new { @class = "form-select" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.LugarNacimiento, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.LugarNacimiento, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Nombres -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Nombres, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        @Html.EditorFor(m => m.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- Nombres -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Nombres, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", pattern = "[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Nombres, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Nombres, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Apellidos -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Apellidos, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                        @Html.EditorFor(m => m.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- Apellidos -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Apellidos, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                            @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", pattern = "[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Dirección -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Direccion, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-home"></i></span>
-                        @Html.EditorFor(m => m.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- Dirección -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Direccion, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Barrio -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Barrio, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-city"></i></span>
-                        @Html.EditorFor(m => m.Barrio, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- Barrio -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Barrio, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-city"></i></span>
+                            @Html.TextBoxFor(m => m.Barrio, new { @class = "form-control", pattern = "[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Barrio, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Barrio, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Correo -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Correo, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        @Html.EditorFor(m => m.Correo, new { htmlAttributes = new { @class = "form-control", type = "email" } })
+                    <!-- Correo -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Correo, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", type = "email" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Correo, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Correo, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Teléfonos -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Telefono, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        @Html.EditorFor(m => m.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- Teléfono -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Telefono, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", maxlength = 10, pattern = "[0-9]+" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Celular, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
-                        @Html.EditorFor(m => m.Celular, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <!-- Celular -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Celular, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                            @Html.TextBoxFor(m => m.Celular, new { @class = "form-control", maxlength = 10, pattern = "[0-9]+" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Celular, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Celular, "", new { @class = "text-danger" })
-                </div>
 
-                <!-- Seguridad Social -->
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.EPS, htmlAttributes: new { @class = "form-label fw-bold" })
-                    @Html.DropDownListFor(m => m.EPS, (IEnumerable<SelectListItem>)ViewBag.EPSList, "-- Seleccione --", new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.EPS, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.FondoPension, htmlAttributes: new { @class = "form-label fw-bold" })
-                    @Html.DropDownListFor(m => m.FondoPension, (IEnumerable<SelectListItem>)ViewBag.FondoPensionList, "-- Seleccione --", new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.FondoPension, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(m => m.FondoCesantias, htmlAttributes: new { @class = "form-label fw-bold" })
-                    @Html.DropDownListFor(m => m.FondoCesantias, (IEnumerable<SelectListItem>)ViewBag.FondoCesantiasList, "-- Seleccione --", new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.FondoCesantias, "", new { @class = "text-danger" })
-                </div>
-
-                <!-- Área de trabajo -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.IdAreaTrabajo, htmlAttributes: new { @class = "form-label fw-bold" })
-                    @Html.DropDownListFor(m => m.IdAreaTrabajo, (IEnumerable<SelectListItem>)ViewBag.AreasTrabajo, "-- Seleccione --", new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.IdAreaTrabajo, "", new { @class = "text-danger" })
-                </div>
-
-                <!-- Profesión -->
-                <div class="col-md-6">
-                    @Html.LabelFor(m => m.Profesion, htmlAttributes: new { @class = "form-label fw-bold" })
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
-                        @Html.EditorFor(m => m.Profesion, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej. Ingeniero, Abogado" } })
+                    <!-- Seguridad Social -->
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.EPS, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.EPS, (IEnumerable<SelectListItem>)ViewBag.EPSList, "-- Seleccione --", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.EPS, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Profesion, "", new { @class = "text-danger" })
-                </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.FondoPension, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.FondoPension, (IEnumerable<SelectListItem>)ViewBag.FondoPensionList, "-- Seleccione --", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.FondoPension, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.FondoCesantias, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.FondoCesantias, (IEnumerable<SelectListItem>)ViewBag.FondoCesantiasList, "-- Seleccione --", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.FondoCesantias, "", new { @class = "text-danger" })
+                    </div>
 
-                <!-- Archivo PDF -->
-                <div class="col-md-6">
-                    <label class="form-label fw-bold">Subir archivo PDF</label>
-                    <input type="file" name="ArchivoPDF" accept="application/pdf" class="form-control" />
-                </div>
+                    <!-- Área de trabajo -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.IdAreaTrabajo, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(m => m.IdAreaTrabajo, (IEnumerable<SelectListItem>)ViewBag.AreasTrabajo, "-- Seleccione --", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.IdAreaTrabajo, "", new { @class = "text-danger" })
+                    </div>
 
-            </div>
+                    <!-- Profesión -->
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Profesion, new { @class = "form-label fw-bold" })
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                            @Html.TextBoxFor(m => m.Profesion, new { @class = "form-control", placeholder = "Ej. Ingeniero, Abogado", pattern = "[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s,]+" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Profesion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Archivo PDF -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Subir archivo PDF</label>
+                        <input type="file" name="ArchivoPDF" accept="application/pdf" class="form-control" />
+                    </div>
+
+                </div>
 
                 <!-- Botones -->
                 <div class="mt-4 d-flex justify-content-end gap-2">

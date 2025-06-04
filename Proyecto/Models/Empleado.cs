@@ -17,6 +17,7 @@ namespace Proyecto.Models
 
         [Display(Name = "Numero de Documento")]
         [Required]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Solo se permiten números.")]
         public string NumeroDocumento { get; set; }
 
         [Display(Name = "Fecha de Expedición")]
@@ -29,10 +30,12 @@ namespace Proyecto.Models
 
         [Display(Name = "Nombres")]
         [Required]
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "Solo se permiten letras.")]
         public string Nombres { get; set; }
 
         [Display(Name = "Apellidos")]
         [Required]
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "Solo se permiten letras.")]
         public string Apellidos { get; set; }
 
         [Display(Name = "Lugar de Nacimiento")]
@@ -45,18 +48,19 @@ namespace Proyecto.Models
 
         [Display(Name = "Barrio")]
         [Required]
+        [RegularExpression(@"^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ.,\-\s]+$", ErrorMessage = "Solo texto válido.")]
         public string Barrio { get; set; }
 
         [Display(Name = "Teléfono")]
         [Required]
         [StringLength(10)]
-        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Solo se permiten números.")]
         public string Telefono { get; set; }
 
         [Display(Name = "Celular")]
         [Required]
         [StringLength(10)]
-        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Solo se permiten números.")]
         public string Celular { get; set; }
 
         [Display(Name = "Correo")]
@@ -81,11 +85,12 @@ namespace Proyecto.Models
         public int IdAreaTrabajo { get; set; }
 
         [Display(Name = "Profesión")]
-        [Required(ErrorMessage = "La profesión es obligatoria")]
+        [Required(ErrorMessage = "La profesión es obligatoria.")]
         [StringLength(100)]
+        [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s,]+$", ErrorMessage = "Solo se permiten letras y comas.")]
         public string Profesion { get; set; }
 
-        // Nueva propiedad para guardar el PDF
+        // Archivo PDF
         public byte[] ArchivoPDF { get; set; }
 
         // Propiedades de navegación

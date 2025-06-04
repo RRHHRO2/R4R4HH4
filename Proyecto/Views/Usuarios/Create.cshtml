@@ -25,7 +25,7 @@
 
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control", placeholder = "Nombre Completo" } })
+                        @Html.TextBoxFor(model => model.NombreCompleto, new { @class = "form-control", type = "text", pattern = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$", title = "Solo letras permitidas" })
                         @Html.ValidationMessageFor(model => model.NombreCompleto, "", new { @class = "text-danger" })
                     </div>
 
