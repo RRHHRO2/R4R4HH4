@@ -34,13 +34,34 @@ namespace Proyecto.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Evita que se pueda volver con el botón "Atrás" después del logout
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetNoStore();
+
             ViewBag.TotalEmpleados = db.Empleados.Count();
             ViewBag.TotalAusencias = db.Ausencias.Count();
             ViewBag.TotalContratos = db.Contratos.Count();
-
             ViewBag.Username = Session["Username"];
+
+            // Lógica de contratos próximos a vencer
+            DateTime hoy = DateTime.Today;
+            DateTime limite = hoy.AddMonths(1);
+
+            var contratosProximos = db.Contratos
+                .Where(c => c.FechaFin >= hoy && c.FechaFin <= limite)
+                .ToList();
+
+            ViewBag.ContratosVencer = contratosProximos.Count;
+
+            if (contratosProximos.Any())
+            {
+                ViewBag.Alerta = $"Hay {contratosProximos.Count} contrato(s) que vencerán en menos de un mes.";
+            }
+
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -77,14 +98,37 @@ namespace Proyecto.Controllers
             return RedirectToAction("Index");
         }
 
-        // Acción de cierre de sesión
+        // Acción de cierre de sesión mejorada
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
+            // Limpiar sesión y autenticación
             Session.Clear();
+            Session.Abandon();
             FormsAuthentication.SignOut();
+
+            // Eliminar todas las cookies del navegador
+            EliminarTodasLasCookies();
+
             return RedirectToAction("Index");
+        }
+
+        // Interno: Elimina todas las cookies
+        private void EliminarTodasLasCookies()
+        {
+            if (Request.Cookies != null)
+            {
+                foreach (string cookieName in Request.Cookies.AllKeys)
+                {
+                    var expiredCookie = new HttpCookie(cookieName)
+                    {
+                        Expires = DateTime.Now.AddDays(-1),
+                        Value = string.Empty
+                    };
+                    Response.Cookies.Add(expiredCookie);
+                }
+            }
         }
 
         // Refrescar cookies (opcional, útil para mantener sesión activa con AJAX)

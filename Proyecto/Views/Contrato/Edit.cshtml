@@ -11,7 +11,7 @@
             <h4 class="mb-0">Editar Contrato</h4>
         </div>
         <div class="card-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Edit", "Contrato", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.Id)
@@ -33,14 +33,31 @@
 
                     <div class="col-md-6">
                         <label class="form-label" for="FechaInicio">Fecha Inicio</label>
-                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control", @Value = Model.FechaInicio.ToString("dd/MM/yyyy") } })
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                         @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label" for="FechaFin">Fecha Fin</label>
-                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", @Value = Model.FechaFin.ToString("dd/MM/yyyy") } })
+                        @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                         @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <label class="form-label">Archivo PDF actual:</label><br />
+                        @if (Model.ArchivoPDF != null && Model.ArchivoPDF.Length > 0)
+                        {
+                            <a href="@Url.Action("VerPDF", "Contrato", new { id = Model.Id })" target="_blank" class="btn btn-outline-secondary btn-sm">Ver PDF</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No hay archivo adjunto.</span>
+                        }
+                    </div>
+
+                    <div class="col-md-12 mt-2">
+                        <label class="form-label">Subir nuevo archivo PDF (opcional):</label>
+                        <input type="file" name="ArchivoPDF" accept="application/pdf" class="form-control" />
                     </div>
                 </div>
 

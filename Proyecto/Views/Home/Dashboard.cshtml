@@ -5,6 +5,7 @@
     int totalEmpleados = ViewBag.TotalEmpleados != null ? (int)ViewBag.TotalEmpleados : 0;
     int totalAusencias = ViewBag.TotalAusencias != null ? (int)ViewBag.TotalAusencias : 0;
     int totalContratos = ViewBag.TotalContratos != null ? (int)ViewBag.TotalContratos : 0;
+    int contratosVencer = ViewBag.TotalContratos != null ? (int)ViewBag.ContratosVencer : 0;
 
     var rol = Session["Rol"]?.ToString() ?? "";
 }
@@ -44,6 +45,23 @@
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar-times fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contratos Próximos a Vencer -->
+        <div class="col-xl-6 col-md-6 mb-4" data-aos="zoom-in-up">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">contratos próximos a vencer en menos de un mes.</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@contratosVencer</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-hourglass-half fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -163,62 +181,6 @@ else if (rol == "Usuario")
         </div>
     </div>
 
-    <style>
-        /* Botón flotante */
-        .btn-flotante {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background-color: #000000; /* azul elegante */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 0 16px;
-            transition: width 0.3s ease, border-radius 0.3s ease;
-            z-index: 1050;
-            user-select: none;
-        }
-
-            /* Expande el botón al pasar cursor */
-            .btn-flotante:hover {
-                width: 160px;
-                border-radius: 28px;
-            }
-
-            /* Texto oculto inicialmente */
-            .btn-flotante .texto {
-                color: white;
-                font-weight: 600;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                margin-left: 12px;
-                opacity: 0;
-                white-space: nowrap;
-                transition: opacity 0.3s ease 0.15s;
-                pointer-events: none;
-                user-select: none;
-            }
-
-            /* Mostrar texto al hacer hover */
-            .btn-flotante:hover .texto {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-            /* Signo de interrogación estilo */
-            .btn-flotante .icono {
-                color: #ff0000;
-                font-size: 28px;
-                font-weight: bold;
-                user-select: none;
-            }
-    </style>
-
     <a href="https://api.whatsapp.com/send?phone=573158967128&text=Hola,%20necesito%20ayuda"
        target="_blank"
        class="btn-flotante"
@@ -283,10 +245,8 @@ else if (rol == "Usuario")
                 pointer-events: auto;
             }
 
-            /* Ajustes para el SVG */
             .btn-flotante .icono {
                 flex-shrink: 0;
             }
     </style>
-
 }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Proyecto.Models
 {
@@ -23,12 +21,18 @@ namespace Proyecto.Models
 
         [Display(Name = "Fecha de Inicio")]
         [Required]
+        [DataType(DataType.Date)]
         public DateTime FechaInicio { get; set; }
 
         [Display(Name = "Fecha de Terminación")]
         [Required]
+        [DataType(DataType.Date)]
         public DateTime FechaFin { get; set; }
 
+        [Display(Name = "Archivo PDF del Contrato")]
+        public byte[] ArchivoPDF { get; set; }
+
+        // Propiedades de navegación
         public virtual TipoContrato TipoContrato { get; set; }
         public virtual Empleado Empleado { get; set; }
     }

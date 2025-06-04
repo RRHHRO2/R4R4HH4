@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+
+    // Deshabilitar caché para evitar problemas con tokens después de logout
+    Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+    Response.Cache.SetValidUntilExpires(false);
+    Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    Response.Cache.SetNoStore();
+}
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -18,54 +28,54 @@
             color: #f1f1f1 !important;
         }
 
-        body.dark-mode .card {
-            background-color: #1e1e1e;
-            border-color: #2c2c2c;
-        }
+            body.dark-mode .card {
+                background-color: #1e1e1e;
+                border-color: #2c2c2c;
+            }
 
-        body.dark-mode .text-gray-800,
-        body.dark-mode .text-dark {
-            color: #f1f1f1 !important;
-        }
+            body.dark-mode .text-gray-800,
+            body.dark-mode .text-dark {
+                color: #f1f1f1 !important;
+            }
 
-        body.dark-mode .text-gray-300 {
-            color: #cfcfcf !important;
-        }
+            body.dark-mode .text-gray-300 {
+                color: #cfcfcf !important;
+            }
 
-        body.dark-mode .bg-white {
-            background-color: #1e1e1e !important;
-            color: #f1f1f1 !important;
-        }
+            body.dark-mode .bg-white {
+                background-color: #1e1e1e !important;
+                color: #f1f1f1 !important;
+            }
 
-        body.dark-mode .sidebar {
-            background-color: #212121 !important;
-        }
+            body.dark-mode .sidebar {
+                background-color: #212121 !important;
+            }
 
-        body.dark-mode .nav-link,
-        body.dark-mode .sidebar-brand-text,
-        body.dark-mode .fas {
-            color: #f1f1f1 !important;
-        }
+            body.dark-mode .nav-link,
+            body.dark-mode .sidebar-brand-text,
+            body.dark-mode .fas {
+                color: #f1f1f1 !important;
+            }
 
         .sidebar {
             transition: all 0.3s ease-in-out;
         }
 
-        .sidebar.toggled {
-            width: 80px !important;
-        }
+            .sidebar.toggled {
+                width: 80px !important;
+            }
 
-        .sidebar .nav-item .nav-link span {
-            transition: opacity 0.3s ease-in-out;
-        }
+            .sidebar .nav-item .nav-link span {
+                transition: opacity 0.3s ease-in-out;
+            }
 
-        .sidebar.toggled .nav-item .nav-link span {
-            opacity: 0;
-        }
+            .sidebar.toggled .nav-item .nav-link span {
+                opacity: 0;
+            }
 
-        .sidebar.toggled .sidebar-brand-text {
-            display: none;
-        }
+            .sidebar.toggled .sidebar-brand-text {
+                display: none;
+            }
 
         #sidebarToggle {
             cursor: pointer;
@@ -73,9 +83,17 @@
 
 
         @@keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            20%, 60% { transform: rotate(15deg); }
-            40%, 80% { transform: rotate(-10deg); }
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+
+            20%, 60% {
+                transform: rotate(15deg);
+            }
+
+            40%, 80% {
+                transform: rotate(-10deg);
+            }
         }
 
         .sidebar-brand-icon.waving i {
