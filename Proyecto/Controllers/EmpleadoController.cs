@@ -63,7 +63,7 @@ namespace Proyecto.Controllers
         // POST: Empleado/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdEmpleado,IdTipoDocumento,NumeroDocumento,FechaExpedicion,MunicipioExpedicion,Nombres,Apellidos,LugarNacimiento,Direccion,Barrio,Telefono,Celular,Correo,EPS,FondoPension,FondoCesantias,IdAreaTrabajo,IdContrato")] Empleado empleado, HttpPostedFileBase archivoPDF)
+        public ActionResult Create([Bind(Include = "IdEmpleado,IdTipoDocumento,NumeroDocumento,FechaExpedicion,MunicipioExpedicion,Nombres,Apellidos,LugarNacimiento,Direccion,Barrio,Telefono,Celular,Correo,EPS,FondoPension,FondoCesantias,IdAreaTrabajo,Profesion")] Empleado empleado, HttpPostedFileBase archivoPDF)
         {
             if (archivoPDF != null && archivoPDF.ContentLength > 0)
             {
@@ -119,7 +119,7 @@ namespace Proyecto.Controllers
         // POST: Empleado/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdEmpleado,IdTipoDocumento,NumeroDocumento,FechaExpedicion,MunicipioExpedicion,Nombres,Apellidos,LugarNacimiento,Direccion,Barrio,Telefono,Celular,Correo,EPS,FondoPension,FondoCesantias,IdAreaTrabajo,IdContrato")] Empleado empleado, HttpPostedFileBase archivoPDF)
+        public ActionResult Edit([Bind(Include = "IdEmpleado,IdTipoDocumento,NumeroDocumento,FechaExpedicion,MunicipioExpedicion,Nombres,Apellidos,LugarNacimiento,Direccion,Barrio,Telefono,Celular,Correo,EPS,FondoPension,FondoCesantias,IdAreaTrabajo,Profesion")] Empleado empleado, HttpPostedFileBase archivoPDF)
         {
             if (archivoPDF != null && archivoPDF.ContentLength > 0)
             {

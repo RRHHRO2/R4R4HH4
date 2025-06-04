@@ -40,6 +40,7 @@
                             <th>Documento</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
+                            <th>Profesión</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -51,6 +52,7 @@
                                 <td>@item.NumeroDocumento</td>
                                 <td>@item.Nombres</td>
                                 <td>@item.Apellidos</td>
+                                <td>@item.Profesion</td>
                                 <td class="text-center">
                                     <a href="@Url.Action("VerPDF", "Empleado", new { id = item.IdEmpleado })" class="btn btn-outline-primary btn-sm rounded-pill mx-1" data-bs-toggle="tooltip" title="Ver PDF">
                                         <i class="fas fa-file-pdf"></i>

@@ -80,6 +80,11 @@ namespace Proyecto.Models
         [Required]
         public int IdAreaTrabajo { get; set; }
 
+        [Display(Name = "Profesión")]
+        [Required(ErrorMessage = "La profesión es obligatoria")]
+        [StringLength(100)]
+        public string Profesion { get; set; }
+
         // Nueva propiedad para guardar el PDF
         public byte[] ArchivoPDF { get; set; }
 
