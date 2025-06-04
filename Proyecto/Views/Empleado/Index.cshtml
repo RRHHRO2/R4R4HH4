@@ -52,6 +52,9 @@
                                 <td>@item.Nombres</td>
                                 <td>@item.Apellidos</td>
                                 <td class="text-center">
+                                    <a href="@Url.Action("VerPDF", "Empleado", new { id = item.IdEmpleado })" class="btn btn-outline-primary btn-sm rounded-pill mx-1" data-bs-toggle="tooltip" title="Ver PDF">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
                                     <a href="@Url.Action("Edit", new { id = item.IdEmpleado })" class="btn btn-outline-warning btn-sm rounded-pill mx-1" data-bs-toggle="tooltip" title="Editar">
                                         <i class="fas fa-pen"></i>
                                     </a>
@@ -60,9 +63,6 @@
                                     </a>
                                     <a href="@Url.Action("Delete", new { id = item.IdEmpleado })" class="btn btn-outline-danger btn-sm rounded-pill mx-1" data-bs-toggle="tooltip" title="Eliminar">
                                         <i class="fas fa-trash"></i>
-                                    </a>
-                                    <a href="@Url.Action("VerPDF", "Empleado", new { id = item.IdEmpleado })" class="btn btn-outline-primary btn-sm rounded-pill mx-1" data-bs-toggle="tooltip" title="Ver PDF">
-                                        <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
                             </tr>
