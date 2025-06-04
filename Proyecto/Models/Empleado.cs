@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Proyecto.Models
 {
@@ -82,6 +80,9 @@ namespace Proyecto.Models
         [Required]
         public int IdAreaTrabajo { get; set; }
 
+        // Nueva propiedad para guardar el PDF
+        public byte[] ArchivoPDF { get; set; }
+
         // Propiedades de navegación
         public virtual Municipio MunicipioNacimiento { get; set; }
         public virtual Municipio MunicipioExpedicionDoc { get; set; }
@@ -96,5 +97,4 @@ namespace Proyecto.Models
         public virtual ICollection<Contrato> Contratos { get; set; }
         public virtual ICollection<EmpleadoDependiente> Dependientes { get; set; }
     }
-
 }

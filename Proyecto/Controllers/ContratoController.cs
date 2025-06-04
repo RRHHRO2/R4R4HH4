@@ -122,6 +122,8 @@ namespace Proyecto.Controllers
                     {
                         contratoExistente.ArchivoPDF = reader.ReadBytes(ArchivoPDF.ContentLength);
                     }
+                    // Marcar la propiedad ArchivoPDF como modificada para forzar su actualización
+                    db.Entry(contratoExistente).Property(c => c.ArchivoPDF).IsModified = true;
                 }
 
                 db.Entry(contratoExistente).State = EntityState.Modified;
@@ -156,16 +158,15 @@ namespace Proyecto.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Contrato/DescargarPDF/5
-        public FileResult DescargarPDF(int id)
+        // GET: Contrato/VerPDF
+        public ActionResult VerPDF(int id)
         {
             var contrato = db.Contratos.Find(id);
             if (contrato == null || contrato.ArchivoPDF == null)
             {
-                return null;
+                return HttpNotFound("Contrato o PDF no encontrado");
             }
-
-            return File(contrato.ArchivoPDF, "application/pdf", $"Contrato_{id}.pdf");
+            return File(contrato.ArchivoPDF, "application/pdf");
         }
 
         protected override void Dispose(bool disposing)

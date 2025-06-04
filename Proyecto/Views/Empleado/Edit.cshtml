@@ -11,16 +11,17 @@
             <h4 class="mb-0">Editar Empleado</h4>
         </div>
         <div class="card-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Edit", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
                 @Html.HiddenFor(model => model.IdEmpleado)
+
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
                 <div class="row g-3">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.IdTipoDocumento, "Tipo de Documento")
-                        @Html.DropDownList("IdTipoDocumento", null, new { @class = "form-select" })
+                        @Html.DropDownList("IdTipoDocumento", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.IdTipoDocumento, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
@@ -30,12 +31,12 @@
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.FechaExpedicion)
-                        @Html.EditorFor(model => model.FechaExpedicion, new { htmlAttributes = new { @class = "form-control", @Value = Model.FechaExpedicion.ToString("dd/MM/yyyy") } })
+                        @Html.EditorFor(model => model.FechaExpedicion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                         @Html.ValidationMessageFor(model => model.FechaExpedicion, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.MunicipioExpedicion, "Municipio Expedición")
-                        @Html.DropDownList("MunicipioExpedicion", null, new { @class = "form-select" })
+                        @Html.DropDownList("MunicipioExpedicion", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.MunicipioExpedicion, "", new { @class = "text-danger" })
                     </div>
 
@@ -51,7 +52,7 @@
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.LugarNacimiento, "Lugar de Nacimiento")
-                        @Html.DropDownList("LugarNacimiento", null, new { @class = "form-select" })
+                        @Html.DropDownList("LugarNacimiento", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.LugarNacimiento, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
@@ -82,28 +83,45 @@
 
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.EPS)
-                        @Html.DropDownList("EPS", null, new { @class = "form-select" })
+                        @Html.DropDownList("EPS", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.EPS, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.FondoPension)
-                        @Html.DropDownList("FondoPension", null, new { @class = "form-select" })
+                        @Html.DropDownList("FondoPension", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.FondoPension, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.FondoCesantias)
-                        @Html.DropDownList("FondoCesantias", null, new { @class = "form-select" })
+                        @Html.DropDownList("FondoCesantias", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.FondoCesantias, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.IdAreaTrabajo, "Área de Trabajo")
-                        @Html.DropDownList("IdAreaTrabajo", null, new { @class = "form-select" })
+                        @Html.DropDownList("IdAreaTrabajo", null, "-- Seleccione --", new { @class = "form-select" })
                         @Html.ValidationMessageFor(model => model.IdAreaTrabajo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <label class="form-label">Archivo PDF actual:</label><br />
+                        @if (Model.ArchivoPDF != null && Model.ArchivoPDF.Length > 0)
+                        {
+                            <a href="@Url.Action("VerPDF", "Empleado", new { id = Model.IdEmpleado })" target="_blank" class="btn btn-outline-secondary btn-sm">Ver PDF</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No hay archivo adjunto.</span>
+                        }
+                    </div>
+
+                    <div class="col-md-12 mt-2">
+                        <label class="form-label">Subir nuevo archivo PDF (opcional):</label>
+                        <input type="file" name="archivoPDF" accept="application/pdf" class="form-control" />
                     </div>
                 </div>
 
                 <div class="mt-4 d-flex justify-content-between">
-                    <a href="@Url.Action("Index")" class="btn btn-secondary">Volver a la lista</a>
+                    <a href="@Url.Action("Index", "Empleado")" class="btn btn-secondary">Volver a la lista</a>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             }
